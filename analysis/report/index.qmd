@@ -27,11 +27,11 @@ open license.*
 
 ::: {.callout-note}
 **Palmer Penguins Series:** This is part 4 of 5:
-[Part 1](/posts/08-palmerpenguinspart1/) |
-[Part 2](/posts/09-palmerpenguinspart2/) |
-[Part 3](/posts/10-palmerpenguinspart3/) |
-[Part 4](/posts/11-palmerpenguinspart4/) |
-[Part 5](/posts/12-palmerpenguinspart5/)
+[Part 1](/posts/pp-eda/) |
+[Part 2](/posts/pp-multiple-regression/) |
+[Part 3](/posts/pp-cross-validation/) |
+[Part 4](/posts/pp-diagnostics/) |
+[Part 5](/posts/pp-random-forest/)
 :::
 
 # Introduction
@@ -202,7 +202,7 @@ model_glance <- glance(best_model)
 model_overview <- tibble(
   Metric = c(
     "R-squared", "Adjusted R-squared",
-    "RMSE (sigma)", "F-statistic",
+    "Residual SE (sigma)", "F-statistic",
     "Observations", "Parameters"
   ),
   Value = c(
@@ -223,7 +223,7 @@ kable(
 )
 ```
 
-The model explains roughly 86% of the variance in
+The model explains roughly 85% of the variance in
 body mass using three continuous predictors and the
 species indicator. These numbers set the baseline
 against which we evaluate diagnostic adequacy.
@@ -314,10 +314,18 @@ if (has_car) {
 }
 ```
 
-A Durbin-Watson statistic near 2.0 and a non-
-significant p-value indicate no evidence of
-autocorrelation. The independence assumption appears
-satisfied for these cross-sectional data.
+The statistic is near 2.0, but the p-value falls just
+below the conventional 0.05 threshold. Before reading
+that as evidence of autocorrelation, note what the
+test is actually doing: Durbin-Watson measures
+correlation between residuals in the order the rows
+happen to appear. These are cross-sectional
+observations whose row order carries no meaning, so
+reordering the data would change the statistic. The
+result is not interpretable as a violation here, and
+independence rests on the sampling design rather than
+on this test. It is reported for completeness, and
+revisited in the Limitations section below.
 
 # Assumption 3: Homoscedasticity
 
@@ -495,7 +503,7 @@ influence_summary <- tibble(
   Criterion = c(
     "High leverage",
     "High Cook's distance",
-    "Large studentised residual"
+    "Large studentized residual"
   ),
   Threshold = c(
     sprintf("%.3f", leverage_thresh),
@@ -563,9 +571,12 @@ conclusions.
 
 # Model Interpretation
 
-With all four assumptions verified and influence
-diagnostics clear, we can interpret the coefficients
-with confidence.
+Linearity, homoscedasticity, and normality are
+satisfied, independence rests on the sampling design
+rather than on a test, and the influence diagnostics
+turned up nothing that moves the fit materially. On
+that basis we can interpret the coefficients with
+reasonable confidence.
 
 ```{r}
 coef_table <- tidy(best_model, conf.int = TRUE) |>
@@ -822,17 +833,13 @@ model specification.
 **Series posts:**
 
 - [Part 1: EDA and Simple
-  Regression](../08-palmerpenguinspart1/
-  palmerpenguinspart1/)
+  Regression](../pp-eda/)
 - [Part 2: Multiple Regression and Species
-  Effects](../09-palmerpenguinspart2/
-  palmerpenguinspart2/)
+  Effects](../pp-multiple-regression/)
 - [Part 3: Cross-Validation and Model
-  Comparison](../10-palmerpenguinspart3/
-  palmerpenguinspart3/)
+  Comparison](../pp-cross-validation/)
 - [Part 5: Random Forest vs Linear
-  Models](../12-palmerpenguinspart5/
-  palmerpenguinspart5/)
+  Models](../pp-random-forest/)
 
 **Key resources:**
 
