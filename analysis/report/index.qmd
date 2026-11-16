@@ -104,6 +104,10 @@ Feedback section at the end.
 
 *Visual interlude before the technical content.*
 
+![A brass stethoscope on graph paper beside a penguin feather.](media/images/ambiance1.jpg){.img-fluid
+fig-alt="A held-out subset of points circled on graph
+paper, evaluated against the rest"}
+
 # Prerequisites and Setup
 
 This analysis uses the same core packages as the
@@ -280,8 +284,6 @@ points and a ruler resting across it, a small cluster
 circled in pencil](media/images/ambiance2.jpg){.img-fluid
 fig-alt="A held-out subset of points circled on graph
 paper, evaluated against the rest"}
-
-*Midpoint pause before the remaining diagnostics.*
 
 # Assumption 2: Independence
 
@@ -682,11 +684,9 @@ useful estimate for field researchers.
    provide a formal check.
 
 ![Penguins in a wide Antarctic
-landscape](media/images/ambiance3.png){.img-fluid
+landscape](media/images/ambiance3.jpg){.img-fluid
 fig-alt="Panoramic view of Antarctic terrain with a
 group of penguins in the foreground"}
-
-*Closing visual before the summary sections.*
 
 ## Lessons Learned
 
